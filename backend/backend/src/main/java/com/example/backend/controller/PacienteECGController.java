@@ -15,10 +15,21 @@ public class PacienteECGController {
     
     @Autowired
     PacienteECGService service;
-    
+
     @GetMapping
-    public ResponseEntity<List<PacienteECG>> find(@PathVariable("id") int id){
+    public ResponseEntity<List<PacienteECG>> findAll(){
         return new ResponseEntity<List<PacienteECG>>(service.findAll(), HttpStatus.OK);
+    }
+    
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<PacienteECG> find(@PathVariable("id") int id){
+        PacienteECG pacienteECG = service.find(id);
+
+        if(pacienteECG != null){
+            return new ResponseEntity<PacienteECG>(pacienteECG, HttpStatus.OK);
+        }else{
+            return new ResponseEntity<PacienteECG>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping(path = "/estado")

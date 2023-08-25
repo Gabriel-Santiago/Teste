@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name= "paciente")
-public class PacienteECG {
+public class PacienteECG{
 
     @Id
     @GeneratedValue(generator = "sequence", strategy = GenerationType.SEQUENCE)
@@ -72,5 +72,9 @@ public class PacienteECG {
         this.cidade = cidade;
         this.estado = estado;
         this.frequenciaCardiaca = frequenciaCardiaca;
+    }
+
+    public PacienteECG() {
+        super();
     }
 }

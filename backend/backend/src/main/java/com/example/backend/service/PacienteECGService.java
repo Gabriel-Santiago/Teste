@@ -21,13 +21,16 @@ public class PacienteECGService {
         return pacienteECGRepository.save(entity);
     }
 
-    public Optional<PacienteECG> find(int id){
+    public PacienteECG find(int id){
         if(id < 1){
             return null;
         }
         Optional<PacienteECG> pacienteECG = pacienteECGRepository.findById(id);
 
-        return Optional.ofNullable(pacienteECG.orElse(null));
+        if(pacienteECG.isPresent()){
+            return pacienteECG.get();
+        }
+        return null;
     }
 
     public List<PacienteECG> findAll(){
@@ -35,8 +38,8 @@ public class PacienteECGService {
     }
 
     public void delete(int id){
-        Optional<PacienteECG> pacienteECGOptional = find(id);
-        pacienteECGOptional.ifPresent(pacienteECG -> pacienteECGRepository.delete(pacienteECG));
+        PacienteECG pacienteECG = find(id);
+        pacienteECGRepository.delete(pacienteECG);
     }
 
     public void update(int id, PacienteECG entity){
